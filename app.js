@@ -2,15 +2,28 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+var globalTotalClicks = 0;
+var globalImageDisplayedTotal = 0;
+
 function handleImageClick (event) {
   // console.log('event.target: ', event.target);
   // console.log('hello from handleImageClick event handler.');
-  var imagesToBeClicked = document.getElementsByClassName('images-to-be-clicked');
-
-  for (var i = 0; i < imagesToBeClicked.length; i++){
-    imagesToBeClicked[i].addEventListener('click', handleImageClick);
+  // displayThreeImages();
+  globalTotalClicks++;
+  if(globalTotalClicks < 25) {
+    displayThreeImages();
+  } else {
+    alert('you clicked 25 times');
   }
 }
+
+var imagesToBeClicked = document.getElementsByClassName('images-to-be-clicked');
+
+for (var i = 0; i < imagesToBeClicked.length; i++){
+  imagesToBeClicked[i].addEventListener('click', handleImageClick);
+}
+
+handleImageClick();
 
 // var firstImage = document.createElement('img');
 // firstImage.setAttribute('src', imageOne);
@@ -33,8 +46,6 @@ function CreateImage(src, title){
 }
 
 var images = [];
-var globalTotalClicks = 0;
-var globalImageDisplayedTotal = 0;
 
 images.push(new CreateImage('img/bag.jpg', 'bag title'));
 images.push(new CreateImage('img/banana.jpg', 'banana title'));
@@ -91,14 +102,13 @@ function displayThreeImages() {
   imageSurvayContainer.appendChild(imageThree);
 }
 
-displayThreeImages();
+// displayThreeImages();
+
 // function userImageClickEvent(event) {
 //   globalTotalClicks++;
 //   if(globalTotalClicks < 25) {
-//     deleteImages(imageOne, imageTwo, imageThree);
-//     displayThreeImages(imageOne, imageTwo, imageThree);
+//     displayThreeImages();
 //   } else {
-//     deleteImages(imageOne, imageTwo, imageThree);
 //     alert('you clicked 25 times');
 //   }
 //   for(var i = 0; i < images.length; i++){
@@ -106,3 +116,9 @@ displayThreeImages();
 //     if(images[i].src === currentImgSrc)
 //       images[i].numClicks++;
 //   }
+// }
+// var imagesToBeClicked = document.getElementsByClassName('images-to-be-clicked');
+//
+// for (var i = 0; i < imagesToBeClicked.length; i++){
+//   imagesToBeClicked[i].addEventListener('click', handleImageClick);
+// }
