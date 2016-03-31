@@ -6,6 +6,10 @@ function handleImageClick (event) {
   globalTotalClicks++;
   if(globalTotalClicks === 25) {
     alert('you clicked 25 times');
+    console.table(getProductsNames());
+    console.table(getClicks());
+    console.table(getDisplay());
+    console.table(getPercentClicked());
     return;
   }
   var currentImgId = event.target.id;
@@ -111,18 +115,96 @@ function displayThreeImages() {
 
 displayThreeImages();
 
+function getProductsNames(){
+  var productNames = [];
+  for(var i = 0; i < images.length; i++){
+    productNames.push(images[i].title);
+  }
+  return productNames;
+};
 
+function getClicks(){
+  var numClicksArray = [];
+  for(var i = 0; i < images.length; i++){
+    numClicksArray.push(images[i].numClicks);
+  }
+  return numClicksArray;
+};
+
+function getDisplay(){
+  var numDisplayArray = [];
+  for(var i = 0; i < images.length; i++){
+    numDisplayArray.push(images[i].numDisplay);
+  }
+  return numDisplayArray;
+};
+
+function getPercentClicked(){
+  var percentageOfClicks = [];
+  for(var i = 0; i < images.length; i++){
+    var tempStorage = Math.floor((images[i].numClicks / images[i].numDisplay) * 100);
+    if (!isNaN(tempStorage) && isFinite(tempStorage)){
+      percentageOfClicks.push(tempStorage);
+    } else {
+      percentageOfClicks.push(0);
+    }
+  }
+  return percentageOfClicks;
+};
+
+var barChartDiv = document.getElementById('box-chart-busmall').getContext('2d');
+
+getProductsNames();
+getClicks();
+getDisplay();
+getPercentclicked();
+
+function getBarChartOf(){
+  var data = {
+    labels: productNames,
+    datasets: [
+      {
+        label: 'Number of Clicks',
+        fillColor: 'rgba(220,220,220,0.5)',
+        strokeColor: 'rgba(220,220,220,0.8)',
+        highlightFill: 'rgba(220,220,220,0.75)',
+        highlightStroke: 'rgba(220,220,220,1)',
+        data: numClicks
+      },
+      {
+        label: 'Num Displys',
+        fillColor: 'rgba(151,187,205,0.5)',
+        strokeColor: 'rgba(151,187,205,0.8)',
+        highlightFill: 'rgba(151,187,205,0.75)',
+        highlightStroke: 'rgba(151,187,205,1)',
+        data: numDisplayArray
+      },
+      {
+        label: 'persentages',
+        fillColor: 'rgba(151,187,205,0.5)',
+        strokeColor: 'rgba(151,187,205,0.8)',
+        highlightFill: 'rgba(151,187,205,0.75)',
+        highlightStroke: 'rgba(151,187,205,1)',
+        data: percentageOfClicks
+      }
+    ]
+  };
+  var myBarChart = new Chart(barChartDiv).Bar(data);
+};
 // var data = {
+/// your image names
 //     labels: ["January", "February", "March", "April", "May", "June", "July"],
 //     datasets: [
 //         each one of these dataset objects is going to represent the data for eather clicks, displays, or presentages
+// colors can be what ever you want
+// data:
 //         {
 //             label: "clicks",
 //             fillColor: "rgba(220,220,220,0.5)",
 //             strokeColor: "rgba(220,220,220,0.8)",
 //             highlightFill: "rgba(220,220,220,0.75)",
 //             highlightStroke: "rgba(220,220,220,1)",
-//             data: [65, 59, 80, 81, 56, 55, 40]
+//             data: [65, 59, 80, 81, 56, 55, 40] // eachone is a number from a corspoing imagedata object in the array of imagedata
 //         },
 //         {
 //             label: "Num Displys",
@@ -131,12 +213,17 @@ displayThreeImages();
 //             highlightFill: "rgba(151,187,205,0.75)",
 //             highlightStroke: "rgba(151,187,205,1)",
 //             data: [28, 48, 40, 19, 86, 27, 90]
+//         },
+//         {
+//             label: "persentages",
+//             fillColor: "rgba(151,187,205,0.5)",
+//             strokeColor: "rgba(151,187,205,0.8)",
+//             highlightFill: "rgba(151,187,205,0.75)",
+//             highlightStroke: "rgba(151,187,205,1)",
+//             data: [28, 48, 40, 19, 86, 27, 90]
 //         }
 //     ]
 // };
-
-
-
 
 // //code review
 // var clicksforgraph = newBarDataSet('clicks', 'rgba('','',''));
