@@ -1,16 +1,19 @@
+var clicksTillFinsh = 25;
+
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 function handleImageClick (event) {
   globalTotalClicks++;
-  if(globalTotalClicks === 25) {
-    alert('you clicked 25 times');
-    // console.table(getProductsNames());
-    // console.table(getClicks());
-    // console.table(getDisplay());
-    // console.table(getPercentClicked());
-    getBarChartOf();
+  if(globalTotalClicks === clicksTillFinsh) {
+    alert('you clicked ' + clicksTillFinsh + ' times');
+    if(clicksTillFinsh == 25) {
+      getButtons();
+    }
+    else {
+      getBarChartOf();
+    }
     return;
   }
 
@@ -24,6 +27,35 @@ function handleImageClick (event) {
 
   displayThreeImages();
 
+};
+
+function handleViewResultClick(event){
+  getBarChartOf();
+};
+
+function handlePickAgainClick(event){
+  globalTotalClicks++;
+
+  /// if clicks is <= 35
+  clicksTillFinsh = 35;
+  // else
+
+};
+
+function getButtons(){
+  var buttonSelectContainer = document.getElementById('button-select-container');
+
+  var viewResultButton = document.createElement('button');
+  var pickAgainButton = document.createElement('button');
+
+  viewResultButton.textContent = 'View Results';
+  pickAgainButton.textContent = 'Pick Again';
+
+  viewResultButton.addEventListener('click', handleViewResultClick);
+  pickAgainButton.addEventListener('click', handlePickAgainClick);
+
+  buttonSelectContainer.appendChild(viewResultButton);
+  buttonSelectContainer.appendChild(pickAgainButton);
 };
 
 function CreateImage(src, title){
