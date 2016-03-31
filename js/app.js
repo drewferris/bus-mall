@@ -8,10 +8,10 @@ function handleImageClick (event) {
     alert('you clicked 25 times');
     return;
   }
+  var currentImgId = event.target.id;
   for(var i = 0; i < images.length; i++){
-    var currentImgId = event.target.id;
     console.log('currentImageId:', currentImgId);
-    if(images[i].id === currentImgId){
+    if(images[i].title === currentImgId){
       images[i].numClicks++;
     }
   }
@@ -73,9 +73,23 @@ function getThreeRandomImage(images){
 };
 
 function displayThreeImages() {
+  // GOAL: get a reference to the image-survay-container
+  // clear it and then add three imaages with data from three random
+  // create image objects.
+
+  // get the reference to the image-survay-container
   var imageSurvayContainer = document.getElementById('image-survay-container');
+  // clear the image-survay-container
   imageSurvayContainer.textContent = '';
+
+  // get three random createImage objects
   var threeImageObjects = getThreeRandomImage(images);
+
+  // increment there numDisplay values
+  threeImageObjects[0].numDisplay++;
+  threeImageObjects[1].numDisplay++;
+  threeImageObjects[2].numDisplay++;
+
   var imageOne = document.createElement('img');
   imageOne.setAttribute('src', threeImageObjects[0].src);
   imageOne.setAttribute('id', threeImageObjects[0].title);
@@ -96,6 +110,33 @@ function displayThreeImages() {
 };
 
 displayThreeImages();
+
+
+// var data = {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//         each one of these dataset objects is going to represent the data for eather clicks, displays, or presentages
+//         {
+//             label: "clicks",
+//             fillColor: "rgba(220,220,220,0.5)",
+//             strokeColor: "rgba(220,220,220,0.8)",
+//             highlightFill: "rgba(220,220,220,0.75)",
+//             highlightStroke: "rgba(220,220,220,1)",
+//             data: [65, 59, 80, 81, 56, 55, 40]
+//         },
+//         {
+//             label: "Num Displys",
+//             fillColor: "rgba(151,187,205,0.5)",
+//             strokeColor: "rgba(151,187,205,0.8)",
+//             highlightFill: "rgba(151,187,205,0.75)",
+//             highlightStroke: "rgba(151,187,205,1)",
+//             data: [28, 48, 40, 19, 86, 27, 90]
+//         }
+//     ]
+// };
+
+
+
 
 // //code review
 // var clicksforgraph = newBarDataSet('clicks', 'rgba('','',''));
