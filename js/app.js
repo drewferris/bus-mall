@@ -6,12 +6,14 @@ function handleImageClick (event) {
   globalTotalClicks++;
   if(globalTotalClicks === 25) {
     alert('you clicked 25 times');
-    console.table(getProductsNames());
-    console.table(getClicks());
-    console.table(getDisplay());
-    console.table(getPercentClicked());
+    // console.table(getProductsNames());
+    // console.table(getClicks());
+    // console.table(getDisplay());
+    // console.table(getPercentClicked());
+    getBarChartOf();
     return;
   }
+
   var currentImgId = event.target.id;
   for(var i = 0; i < images.length; i++){
     console.log('currentImageId:', currentImgId);
@@ -152,14 +154,12 @@ function getPercentClicked(){
   return percentageOfClicks;
 };
 
-var barChartDiv = document.getElementById('box-chart-busmall').getContext('2d');
-
-getProductsNames();
-getClicks();
-getDisplay();
-getPercentclicked();
-
 function getBarChartOf(){
+  var barChartCanvasContext = document.getElementById('box-chart-busmall').getContext('2d');
+  var productNames = getProductsNames();
+  var numClicksArray = getClicks();
+  var numDisplayArray = getDisplay();
+  var percentageOfClicks = getPercentClicked();
   var data = {
     labels: productNames,
     datasets: [
@@ -169,7 +169,7 @@ function getBarChartOf(){
         strokeColor: 'rgba(220,220,220,0.8)',
         highlightFill: 'rgba(220,220,220,0.75)',
         highlightStroke: 'rgba(220,220,220,1)',
-        data: numClicks
+        data: numClicksArray
       },
       {
         label: 'Num Displys',
@@ -189,85 +189,5 @@ function getBarChartOf(){
       }
     ]
   };
-  var myBarChart = new Chart(barChartDiv).Bar(data);
+  new Chart(barChartCanvasContext).Bar(data);
 };
-// var data = {
-/// your image names
-//     labels: ["January", "February", "March", "April", "May", "June", "July"],
-//     datasets: [
-//         each one of these dataset objects is going to represent the data for eather clicks, displays, or presentages
-// colors can be what ever you want
-// data:
-//         {
-//             label: "clicks",
-//             fillColor: "rgba(220,220,220,0.5)",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "rgba(220,220,220,0.75)",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: [65, 59, 80, 81, 56, 55, 40] // eachone is a number from a corspoing imagedata object in the array of imagedata
-//         },
-//         {
-//             label: "Num Displys",
-//             fillColor: "rgba(151,187,205,0.5)",
-//             strokeColor: "rgba(151,187,205,0.8)",
-//             highlightFill: "rgba(151,187,205,0.75)",
-//             highlightStroke: "rgba(151,187,205,1)",
-//             data: [28, 48, 40, 19, 86, 27, 90]
-//         },
-//         {
-//             label: "persentages",
-//             fillColor: "rgba(151,187,205,0.5)",
-//             strokeColor: "rgba(151,187,205,0.8)",
-//             highlightFill: "rgba(151,187,205,0.75)",
-//             highlightStroke: "rgba(151,187,205,1)",
-//             data: [28, 48, 40, 19, 86, 27, 90]
-//         }
-//     ]
-// };
-
-// //code review
-// var clicksforgraph = newBarDataSet('clicks', 'rgba('','',''));
-// clicksforgraph.getFields(images, 'numClicks');
-//
-// var displaysforgraph = newBarDataSet('cdisplays', 'rgba('','',''));
-// clicksforgraph.getFields(images, 'numDisplay');
-//
-// var percent = newBarDataSet('cdisplays', 'rgba('','',''));
-// clicksforgraph.setFields(images, 'timesClicked', 'numDisplay');
-// function Bardataset() {
-//   this.label
-//   fillColor
-//   strokeColor
-//   highlightFill
-//   highlightStroke
-//   this.data = []
-// }
-// function BarChartData() {
-//
-// }
-//
-// Bardataset.prototype.getFields = function(imputArry, field)
-// for (var i = 0; i < images.length; i++) {}
-// this.data.push(images[i][field])
-//
-// Bardataset.prototype.getPercentclicked = function (images, field1, field2)
-// for( var i = 0; i < images.length ; i++; {
-//   var percentCLicked = parseInt(images[i][field1]) / parseInt(image[i][field2])
-//   if (isNaN(percentCLicked)) {
-//   this.data.push(0)
-// } else {
-//   this.data.push(percentCLicked);
-// }
-// }
-//
-// Bardataset.prototype.getLabels = function(imputArry, field)
-// for (var i = 0; i < images.length; i++) {}
-// this.data.push(images[i][field])
-//
-// var setupbarDataChart = new BarChartData();
-// setUpBarChart.pushData(clicksforgraph)
-// setUpBarChart.pushData(displaysforgraph)
-// setUpBarChart.pushData(percentCLicked)
-// setUpBarChart.getLabel(cimages, 'title');
-//
-// var ctx = document.getElementById('myChart').getContext('2d')
