@@ -8,7 +8,7 @@ function handleImageClick (event) {
   globalTotalClicks++;
   if(globalTotalClicks === clicksTillFinsh) {
     alert('you clicked ' + clicksTillFinsh + ' times');
-    if(clicksTillFinsh == 25) {
+    if(clicksTillFinsh === 25) {
       getButtons();
     }
     else {
@@ -24,7 +24,7 @@ function handleImageClick (event) {
       images[i].numClicks++;
     }
   }
-
+  saveImagesClickedToStorage();
   displayThreeImages();
 
 };
@@ -66,30 +66,37 @@ function CreateImage(src, title){
   this.numDisplay = 0;
 };
 
-var images = [];
+var images;
 var globalTotalClicks = 0;
 
-images.push(new CreateImage('img/bag.jpg', 'bag title'));
-images.push(new CreateImage('img/banana.jpg', 'banana title'));
-images.push(new CreateImage('img/bathroom.jpg', 'bathroom title'));
-images.push(new CreateImage('img/boots.jpg', 'boots title'));
-images.push(new CreateImage('img/breakfast.jpg', 'breakfast title'));
-images.push(new CreateImage('img/bubblegum.jpg', 'bubblegum title'));
-images.push(new CreateImage('img/chair.jpg', 'chair title'));
-images.push(new CreateImage('img/cthulhu.jpg', 'cthulhu title'));
-images.push(new CreateImage('img/dog-duck.jpg', 'dog-duck title'));
-images.push(new CreateImage('img/dragon.jpg', 'dragon title'));
-images.push(new CreateImage('img/pen.jpg', 'pen title'));
-images.push(new CreateImage('img/pet-sweep.jpg', 'pet-sweep title'));
-images.push(new CreateImage('img/scissors.jpg', 'scissors title'));
-console.log(images + ' are the images');
-images.push(new CreateImage('img/shark.jpg', 'shark title'));
-images.push(new CreateImage('img/sweep.png', 'sweep title'));
-images.push(new CreateImage('img/tauntaun.jpg', 'tauntaun title'));
-images.push(new CreateImage('img/unicorn.jpg', 'unicorn title'));
-images.push(new CreateImage('img/usb.gif', 'usb title'));
-images.push(new CreateImage('img/water-can.jpg', 'water-can title'));
-images.push(new CreateImage('img/wine-glass.jpg', 'wine-glass title'));
+// fetch from local storage, if there is data use it
+
+// else create all this new data
+fetchImagesClickedFromStorage();
+if (!images){
+  images = [];
+  images.push(new CreateImage('img/bag.jpg', 'bag title'));
+  images.push(new CreateImage('img/banana.jpg', 'banana title'));
+  images.push(new CreateImage('img/bathroom.jpg', 'bathroom title'));
+  images.push(new CreateImage('img/boots.jpg', 'boots title'));
+  images.push(new CreateImage('img/breakfast.jpg', 'breakfast title'));
+  images.push(new CreateImage('img/bubblegum.jpg', 'bubblegum title'));
+  images.push(new CreateImage('img/chair.jpg', 'chair title'));
+  images.push(new CreateImage('img/cthulhu.jpg', 'cthulhu title'));
+  images.push(new CreateImage('img/dog-duck.jpg', 'dog-duck title'));
+  images.push(new CreateImage('img/dragon.jpg', 'dragon title'));
+  images.push(new CreateImage('img/pen.jpg', 'pen title'));
+  images.push(new CreateImage('img/pet-sweep.jpg', 'pet-sweep title'));
+  images.push(new CreateImage('img/scissors.jpg', 'scissors title'));
+  console.log(images + ' are the images');
+  images.push(new CreateImage('img/shark.jpg', 'shark title'));
+  images.push(new CreateImage('img/sweep.png', 'sweep title'));
+  images.push(new CreateImage('img/tauntaun.jpg', 'tauntaun title'));
+  images.push(new CreateImage('img/unicorn.jpg', 'unicorn title'));
+  images.push(new CreateImage('img/usb.gif', 'usb title'));
+  images.push(new CreateImage('img/water-can.jpg', 'water-can title'));
+  images.push(new CreateImage('img/wine-glass.jpg', 'wine-glass title'));
+}
 
 function getThreeRandomImage(images){
   var imageIndexOne = getRandomIntInclusive(0, images.length - 1);
@@ -223,3 +230,22 @@ function getBarChartOf(){
   };
   new Chart(barChartCanvasContext).Bar(data);
 };
+
+function saveImagesClickedToStorage(){
+  localStorage.setItem('userImagesClicked', JSON.stringify(images));
+};
+
+function fetchImagesClickedFromStorage(){
+  var userImagesClicked = JSON.parse(localStorage.getItem('userImagesClicked'));
+  if (userImagesClicked){
+    console.log('user has already saved their own clicks');
+    images = userImagesClicked;
+  }
+}
+
+function handleClearLocalStorage(){
+  localStorage.clear();
+};
+
+var clearLsButton = document.getElementById('clear-ls');
+clearLsButton.addEventListener('click', handleClearLocalStorage);
