@@ -9,23 +9,32 @@ function handleImageClick (event) {
   if(globalTotalClicks === clicksTillFinsh) {
     alert('you clicked ' + clicksTillFinsh + ' times');
     if(clicksTillFinsh === 25) {
+      var imageSurvayContainer = document.getElementById('image-survay-container');
+
+      imageSurvayContainer.textContent = '';
       getButtons();
+
+      // var buttonSelectContainer = document.getElementById('button-select-container');
+      // buttonSelectContainer.textContent = '';
     }
     else {
+      var imageSurvayContainer = document.getElementById('image-survay-container');
+      imageSurvayContainer.textContent = '';
+      console.log('wlkjasldkfjaslkdfj alsdkfj ldafj ');
       getBarChartOf();
     }
     return;
-  }
-
-  var currentImgId = event.target.id;
-  for(var i = 0; i < images.length; i++){
-    console.log('currentImageId:', currentImgId);
-    if(images[i].title === currentImgId){
-      images[i].numClicks++;
+  } else {
+    var currentImgId = event.target.id;
+    for(var i = 0; i < images.length; i++){
+      console.log('currentImageId:', currentImgId);
+      if(images[i].title === currentImgId){
+        images[i].numClicks++;
+      }
     }
+    saveImagesClickedToStorage();
+    displayThreeImages();
   }
-  saveImagesClickedToStorage();
-  displayThreeImages();
 
 };
 
@@ -34,15 +43,26 @@ function handleViewResultClick(event){
 };
 
 function handlePickAgainClick(event){
+
+  displayThreeImages();
+  var buttonSelectContainer = document.getElementById('button-select-container');
+  buttonSelectContainer.textContent = '';
+
   globalTotalClicks++;
 
-  /// if clicks is <= 35
   clicksTillFinsh = 35;
-  // else
 
+  // if(clicksTillFinsh = 35) {
+  //   var imageSurvayContainer = document.getElementById('image-survay-container');
+  //
+  //   imageSurvayContainer.textContent = '';
+  // } else {
+  //   displayThreeImages();
+  // }
 };
 
 function getButtons(){
+
   var buttonSelectContainer = document.getElementById('button-select-container');
 
   var viewResultButton = document.createElement('button');
