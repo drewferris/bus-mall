@@ -1,0 +1,36 @@
+#choose {
+  position: relative;
+	top: 15px;
+	left: 400px;
+  font-family: 'Dancing Script', cursive;
+  }
+
+h1 {
+  position: relative;
+	top: 15px;
+	left: 400px;
+}
+img {
+  width: 250px;
+  border: 2px solid black;
+  float: left;
+  margin: 5px;
+  border-radius: 10px;
+  margin-left: 75px;
+}
+
+img:hover {
+  width: 300px;
+  height: aut;
+}
+
+canvas {
+  margin-left: 325px;
+}
+
+/*body {
+  background-image: url(timthumb.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-attachment: fixed;*/
+}*/
