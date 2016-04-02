@@ -1,9 +1,15 @@
-h1 { position: relative;
+#choose {
+  position: relative;
 	top: 15px;
 	left: 400px;
   font-family: 'Dancing Script', cursive;
   }
 
+h1 {
+  position: relative;
+	top: 15px;
+	left: 400px;
+}
 img {
   width: 250px;
   border: 2px solid black;
@@ -18,6 +24,13 @@ img:hover {
   height: aut;
 }
 
-.image-survay-container {
-
+canvas {
+  margin-left: 325px;
 }
+
+/*body {
+  background-image: url(timthumb.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-attachment: fixed;*/
+}*/

@@ -13,14 +13,10 @@ function handleImageClick (event) {
 
       imageSurvayContainer.textContent = '';
       getButtons();
-
-      // var buttonSelectContainer = document.getElementById('button-select-container');
-      // buttonSelectContainer.textContent = '';
     }
     else {
       var imageSurvayContainer = document.getElementById('image-survay-container');
       imageSurvayContainer.textContent = '';
-      console.log('wlkjasldkfjaslkdfj alsdkfj ldafj ');
       getBarChartOf();
     }
     return;
@@ -40,6 +36,8 @@ function handleImageClick (event) {
 
 function handleViewResultClick(event){
   getBarChartOf();
+  var buttonSelectContainer = document.getElementById('button-select-container');
+  buttonSelectContainer.textContent = '';
 };
 
 function handlePickAgainClick(event){
